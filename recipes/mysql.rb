@@ -21,5 +21,6 @@ secrets = Chef::EncryptedDataBagItem.load("openstack", "secrets")
 node.set['mysql']['server_root_password'] = secrets['mysql_admin_password']
 node.set['mysql']['server_debian_password'] = secrets['mysql_admin_password']
 node.set['mysql']['server_repl_password'] = secrets['mysql_admin_password']
+node.set['mysql']['bind-address'] = "0.0.0.0"
 
 include_recipe 'mysql::server'
