@@ -21,7 +21,8 @@ secrets = Chef::EncryptedDataBagItem.load("openstack", "secrets")
 node.set['mysql']['server_root_password'] = secrets['mysql_admin_password']
 node.set['mysql']['server_debian_password'] = secrets['mysql_admin_password']
 node.set['mysql']['server_repl_password'] = secrets['mysql_admin_password']
-node.set['mysql']['bind-address'] = "0.0.0.0"
+
+keystone_db = "keystone"
 
 include_recipe 'mysql::server'
 
@@ -30,4 +31,20 @@ template '/etc/mysql/conf.d/my_openstack.cnf' do
   owner 'mysql'      
   source 'my_openstack.cnf.erb'
   notifies :restart, 'mysql_service[default]'
+end
+
+openstack_mysql_user = secrets['mysql_user']
+openstack_mysql_password = secrets['mysql_password']
+
+mysql_connection_info = {:host => mysql_host,
+	                       :username => 'root',
+												 :password => node['mysql']['server_root_password']}
+
+mysql_database_user openstack_mysql_user do
+	connection mysql_connection_info
+	password openstack_mysql_password
+	database_name keystone_db
+	host "%"
+	privileges [:all]
+	action [:create, :grant]
 end
