@@ -25,9 +25,9 @@ node.set['mysql']['bind-address'] = "0.0.0.0"
 
 include_recipe 'mysql::server'
 
-template '/etc/mysql/my.cnf' do
+template '/etc/mysql/conf.d/my_openstack.cnf' do
   owner 'mysql'
   owner 'mysql'      
-  source 'my.cnf.erb'
+  source 'my_openstack.cnf.erb'
   notifies :restart, 'mysql_service[default]'
 end
