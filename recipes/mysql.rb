@@ -37,7 +37,7 @@ end
 openstack_mysql_user = secrets['mysql_user']
 openstack_mysql_password = secrets['mysql_password']
 
-mysql_connection_info = {:host => mysql_host,
+mysql_connection_info = {:host => '127.0.0.1',
 	                       :username => 'root',
 												 :password => node['mysql']['server_root_password']}
 
