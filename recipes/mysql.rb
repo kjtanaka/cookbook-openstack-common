@@ -24,3 +24,10 @@ node.set['mysql']['server_repl_password'] = secrets['mysql_admin_password']
 node.set['mysql']['bind-address'] = "0.0.0.0"
 
 include_recipe 'mysql::server'
+
+template '/etc/mysql/my.cnf' do
+  owner 'mysql'
+  owner 'mysql'      
+  source 'my.cnf.erb'
+  notifies :restart, 'mysql_service[default]'
+end
