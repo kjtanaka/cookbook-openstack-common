@@ -25,6 +25,7 @@ node.set['mysql']['server_repl_password'] = secrets['mysql_admin_password']
 keystone_db = "keystone"
 
 include_recipe 'mysql::server'
+include_recipe 'database::mysql'
 
 template '/etc/mysql/conf.d/my_openstack.cnf' do
   owner 'mysql'
