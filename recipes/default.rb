@@ -7,6 +7,10 @@
 # All rights reserved - Do Not Redistribute
 #
 
-package "python-mysqldb" do
-	action :install
+packages = %w[python-mysqldb ntp]
+
+packages.each do |pkg|
+  package pkg do
+	  action :install
+  end
 end
