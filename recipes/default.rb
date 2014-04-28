@@ -6,3 +6,7 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+
+package "python-mysqldb" do
+	action :install
+end
