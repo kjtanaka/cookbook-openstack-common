@@ -42,6 +42,7 @@ mysql_connection_info = {:host => '127.0.0.1',
 												 :password => node['mysql']['server_root_password']}
 
 mysql_database keystone_db do
+	connection mysql_connection_info
   action :create
 end
 
