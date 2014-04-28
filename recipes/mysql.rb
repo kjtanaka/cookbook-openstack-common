@@ -22,7 +22,7 @@ node.set['mysql']['server_root_password'] = secrets['mysql_admin_password']
 node.set['mysql']['server_debian_password'] = secrets['mysql_admin_password']
 node.set['mysql']['server_repl_password'] = secrets['mysql_admin_password']
 
-keystone_db = "keystone"
+keystone_db = node['openstack']['keystone_db']
 
 include_recipe 'mysql::server'
 include_recipe 'database::mysql'
@@ -40,6 +40,10 @@ openstack_mysql_password = secrets['mysql_password']
 mysql_connection_info = {:host => '127.0.0.1',
 	                       :username => 'root',
 												 :password => node['mysql']['server_root_password']}
+
+mysql_database keystone_db do
+  action :create
+end
 
 mysql_database_user openstack_mysql_user do
 	connection mysql_connection_info
