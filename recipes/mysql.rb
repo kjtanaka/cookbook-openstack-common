@@ -31,7 +31,7 @@ template '/etc/mysql/conf.d/my_openstack.cnf' do
   owner 'mysql'
   owner 'mysql'      
   source 'my_openstack.cnf.erb'
-  notifies :restart, 'mysql_service[default]'
+  notifies :restart, 'mysql_service[default]', :immediately
 end
 
 openstack_mysql_user = secrets['mysql_user']
